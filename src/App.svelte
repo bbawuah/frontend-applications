@@ -1,20 +1,23 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { scaleBand, scaleLinear, scaleOrdinal } from 'd3-scale';
 	import BarChart from './d3/BarChart/BarChart.svelte';
-	import { AreaType, D3Data, PaymentMethods } from './types/Types';
-	export let name: string;
-	let data: D3Data[];
+	import type { AreaType, D3Data } from './types/Types';
+	import { PaymentMethods } from './types/Types';
+	let data: Promise<D3Data[]> = loadPaymentMethodData();
 
-	onMount(async () => {
+	async function loadPaymentMethodData() {
 		const paymentMethodsResponse = await fetch(
 			'https://opendata.rdw.nl/resource/r3rs-ibz5.json',
 		);
-		const paymentMethodsJson = await paymentMethodsResponse.json();
-
+		const json = await paymentMethodsResponse.json();
 		const paymentMethods = Object.values(PaymentMethods);
 
+		const margin = { top: 20, right: 20, bottom: 30, left: 110 },
+			width = 700 - margin.left - margin.right,
+			height = 500 - margin.top - margin.bottom;
+
 		let paymentData: D3Data[] = paymentMethods.map((payment) => {
-			const paymentMethodAreas = paymentMethodsJson.filter(
+			const paymentMethodAreas = json.filter(
 				(item: AreaType) => item.paymentmethod.toUpperCase() === payment,
 			);
 			return {
@@ -22,9 +25,8 @@
 				areas: paymentMethodAreas,
 			};
 		});
-
-		data = paymentData;
-	});
+		return paymentData;
+	}
 </script>
 
 <style>
@@ -50,11 +52,9 @@
 </style>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>
-		Visit the
-		<a href="https://svelte.dev/tutorial">Svelte tutorial</a>
-		to learn how to build Svelte apps.
-	</p>
-	<BarChart parkingData={data} />
+	{#await data}
+		<p>loaded..</p>
+	{:then data}
+		<BarChart {data} />
+	{/await}
 </main>
