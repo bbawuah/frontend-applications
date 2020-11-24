@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { geoMercator, geoPath } from 'd3-geo';
+	import { geoMercator, geoPath, geoProjection } from 'd3-geo';
 	import { onMount } from 'svelte';
 	import { feature } from 'topojson';
 	import { tweened } from 'svelte/motion';
