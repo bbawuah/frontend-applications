@@ -38,8 +38,8 @@
 			.append('rect')
 			.attr('class', 'bar')
 			.attr('fill', '#8d99ae')
-			.attr('width', (data) => x(data.areas.length))
-			.attr('y', (data) => y(data.paymentMethodTitle))
+			.attr('width', (d) => x(d.areas.length))
+			.attr('y', (d) => y(d.paymentMethodTitle))
 			.attr('height', y.bandwidth());
 
 		// x Axis

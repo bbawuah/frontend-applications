@@ -1,61 +1,8 @@
 <script lang="ts">
-	import BarChart from '../d3/BarChart/BarChart.svelte';
-	import GeoMap from '../d3/Map/GeoMap.svelte';
 	import Container from '../core/Container.svelte';
 	import Image from '../core/Image.svelte';
 	import type { AreaType, D3Data, SellingPoints } from '../types/Types';
 	import { PaymentMethods, AreaManagerID } from '../types/Types';
-	let data: Promise<{
-		cleanFormattedDataSet: SellingPoints[];
-		paymentData: D3Data[];
-	}> = loadData();
-
-	async function loadData() {
-		// Payments
-		const paymentMethodsResponse = await fetch(
-			'https://opendata.rdw.nl/resource/r3rs-ibz5.json',
-		);
-		const json = await paymentMethodsResponse.json();
-		const paymentMethods = Object.values(PaymentMethods);
-
-		let paymentData: D3Data[] = paymentMethods.map((payment) => {
-			const paymentMethodAreas = json.filter(
-				(item: AreaType) => item.paymentmethod.toUpperCase() === payment,
-			);
-			return {
-				paymentMethodTitle: payment,
-				areas: paymentMethodAreas,
-			};
-		});
-
-		// SellingPoints
-		const sellingPointsResponse = await fetch(
-			'https://opendata.rdw.nl/resource/cgqw-pfbp.json',
-		);
-		const sellingPointsJson = await sellingPointsResponse.json();
-
-		const areas = Object.values(AreaManagerID);
-
-		const formattedArraySellingPoints: SellingPoints[] = areas.map((area) => {
-			const paymentMethodAreas = sellingPointsJson.filter(
-				(item: any) => item.areamanagerid === area,
-			);
-
-			return {
-				area: area,
-				areas: paymentMethodAreas,
-			};
-		});
-
-		const cleanFormattedDataSet = formattedArraySellingPoints.filter(
-			(item) => item.areas.length > 0,
-		);
-
-		return {
-			cleanFormattedDataSet,
-			paymentData,
-		};
-	}
 </script>
 
 <style>
