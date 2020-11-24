@@ -123,3 +123,8 @@ export interface SellingPoints {
 	area: string;
 	areas: Area[];
 }
+
+export interface ObjectForDataType {
+	paymentData: Promise<D3Data[]>;
+	sellingPointsData: Promise<SellingPoints[]>;
+}

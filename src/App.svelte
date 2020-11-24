@@ -1,9 +1,59 @@
 <script lang="ts">
-	import { scaleBand, scaleLinear, scaleOrdinal } from 'd3-scale';
 	import BarChart from './d3/BarChart/BarChart.svelte';
-	import type { AreaType, D3Data } from './types/Types';
-	import { PaymentMethods } from './types/Types';
-	let data: Promise<D3Data[]> = loadPaymentMethodData();
+	import GeoMap from './d3/Map/GeoMap.svelte';
+	import type { AreaType, D3Data, SellingPoints } from './types/Types';
+	import { PaymentMethods, AreaManagerID } from './types/Types';
+	let data: Promise<{
+		cleanFormattedDataSet: SellingPoints[];
+		paymentData: D3Data[];
+	}> = loadData();
+
+	async function loadData() {
+		// Payments
+		const paymentMethodsResponse = await fetch(
+			'https://opendata.rdw.nl/resource/r3rs-ibz5.json',
+		);
+		const json = await paymentMethodsResponse.json();
+		const paymentMethods = Object.values(PaymentMethods);
+
+		let paymentData: D3Data[] = paymentMethods.map((payment) => {
+			const paymentMethodAreas = json.filter(
+				(item: AreaType) => item.paymentmethod.toUpperCase() === payment,
+			);
+			return {
+				paymentMethodTitle: payment,
+				areas: paymentMethodAreas,
+			};
+		});
+
+		// SellingPoints
+		const sellingPointsResponse = await fetch(
+			'https://opendata.rdw.nl/resource/cgqw-pfbp.json',
+		);
+		const sellingPointsJson = await sellingPointsResponse.json();
+
+		const areas = Object.values(AreaManagerID);
+
+		const formattedArraySellingPoints: SellingPoints[] = areas.map((area) => {
+			const paymentMethodAreas = sellingPointsJson.filter(
+				(item: any) => item.areamanagerid === area,
+			);
+
+			return {
+				area: area,
+				areas: paymentMethodAreas,
+			};
+		});
+
+		const cleanFormattedDataSet = formattedArraySellingPoints.filter(
+			(item) => item.areas.length > 0,
+		);
+
+		return {
+			cleanFormattedDataSet,
+			paymentData,
+		};
+	}
 
 	async function loadPaymentMethodData() {
 		const paymentMethodsResponse = await fetch(
@@ -11,10 +61,6 @@
 		);
 		const json = await paymentMethodsResponse.json();
 		const paymentMethods = Object.values(PaymentMethods);
-
-		const margin = { top: 20, right: 20, bottom: 30, left: 110 },
-			width = 700 - margin.left - margin.right,
-			height = 500 - margin.top - margin.bottom;
 
 		let paymentData: D3Data[] = paymentMethods.map((payment) => {
 			const paymentMethodAreas = json.filter(
@@ -53,8 +99,9 @@
 
 <main>
 	{#await data}
-		<p>loaded..</p>
+		<p>loaded bar chart..</p>
 	{:then data}
-		<BarChart {data} />
+		<BarChart data={data.paymentData} />
+		<GeoMap sellingPoints={data.cleanFormattedDataSet} paymentData={data.paymentData} />
 	{/await}
 </main>

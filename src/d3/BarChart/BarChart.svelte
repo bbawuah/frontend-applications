@@ -29,7 +29,7 @@
 			.attr('width', width + margin.left + margin.right)
 			.attr('height', height + margin.top + margin.bottom)
 			.append('g')
-			.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+			.attr('transform', `translate(${margin.left}',' ${margin.top})`);
 
 		d3.select(el)
 			.selectAll('.bar')
@@ -37,6 +37,7 @@
 			.enter()
 			.append('rect')
 			.attr('class', 'bar')
+			.attr('fill', '#8d99ae')
 			.attr('width', (data) => x(data.areas.length))
 			.attr('y', (data) => y(data.paymentMethodTitle))
 			.attr('height', y.bandwidth());
@@ -44,7 +45,7 @@
 		// x Axis
 		d3.select(el)
 			.append('g')
-			.attr('transform', 'translate(0,' + height + ')')
+			.attr('transform', `translate(0, ${height})`)
 			.call(d3.axisBottom(x));
 
 		// y Axis
