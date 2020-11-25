@@ -30,7 +30,9 @@
 				return [(1 - t) * p0[0] + t * p1[0], (1 - t) * -p0[1] + t * -p1[1]];
 			}
 
-			return geoProjection(project).scale(1).translate([0, 0]);
+			return geoProjection(project as any)
+				.scale(1)
+				.translate([0, 0]);
 		};
 	};
 
@@ -56,18 +58,6 @@
 			),
 		])
 		.range([2, 15]);
-
-	const circleColorScale = scaleSqrt()
-		.domain([
-			0,
-			Math.max.apply(
-				Math,
-				sellingPoints.map(function (sellingPoint) {
-					return sellingPoint.areas.length;
-				}),
-			),
-		])
-		.range(['#ffffff', '#5555ff']);
 </script>
 
 <style>
@@ -95,6 +85,6 @@
 				parseFloat(sellingPoint.areas[0].location.latitude),
 			])[1]}
 			r={circleScale(sellingPoint.areas.length)}
-			fill="green" />
+			fill="#2856B8" />
 	{/each}
 </svg>

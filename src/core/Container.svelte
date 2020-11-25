@@ -1,8 +1,11 @@
 <script lang="ts">
-	import { Link } from 'svelte-routing';
+	import Button from './Button.svelte';
 	export let title: string;
 	export let paragraph: string;
-	export let to: string;
+	export let firstBtnRoute: string;
+	export let secondBtnRoute: string;
+	export let firstButtonText: string;
+	export let secondButtonText: string;
 </script>
 
 <style>
@@ -11,11 +14,13 @@
 		flex-direction: column;
 		width: 100vw;
 		height: 100vh;
+		overflow-x: hidden;
 	}
 
 	.wrapper {
 		display: flex;
 		justify-content: space-evenly;
+		min-height: 800px;
 	}
 
 	.text {
@@ -33,9 +38,11 @@
 		font-size: 1rem;
 	}
 
-	.button {
+	.button-container {
+		display: flex;
+		justify-content: space-evenly;
 		align-self: center;
-		width: max-content;
+		width: 300px;
 	}
 </style>
 
@@ -49,5 +56,14 @@
 			<slot />
 		</div>
 	</div>
-	<Link class="button" {to}>Get started</Link>
+	<div class="button-container">
+		{#if !firstBtnRoute && !firstButtonText}
+			<Button to={secondBtnRoute} text={secondButtonText} />
+		{:else if !secondBtnRoute && !secondButtonText}
+			<Button to={firstBtnRoute} text={firstButtonText} />
+		{:else}
+			<Button to={firstBtnRoute} text={firstButtonText} />
+			<Button to={secondBtnRoute} text={secondButtonText} />
+		{/if}
+	</div>
 </main>

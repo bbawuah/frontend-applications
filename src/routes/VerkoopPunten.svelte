@@ -1,6 +1,7 @@
 <script lang="ts">
 	import BarChart from '../d3/BarChart/BarChart.svelte';
 	import Container from '../core/Container.svelte';
+	import Layout from '../core/Layout.svelte';
 	import type { AreaType, D3Data, SellingPoints } from '../types/Types';
 	import { PaymentMethods, AreaManagerID } from '../types/Types';
 
@@ -36,13 +37,6 @@
 		margin: 0 auto;
 	}
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
 	@media (min-width: 640px) {
 		main {
 			max-width: none;
@@ -50,15 +44,20 @@
 	}
 </style>
 
-<main>
-	{#await data}
-		<p>loaded bar chart..</p>
-	{:then data}
-		<Container
-			title="Wat gebeurt er met de betalingsmethodes, als de verkooppunten stijgen/dalen?"
-			paragraph="De wereld is continu in verandering. Technologisering zorgt ervoor dat we steeds op makkelijkere manieren kunnen betalen voor diensten. Dit heeft ook gevolgen op de verkooppunten van de parkeergarage. Tegenwoordig is het zelfs mogelijk om je mobiel te scannen op het moment dat je in een garage rijdt. Daalt het aantal verkooppunten in Nederland door technologisering? En zijn er steeds minder plekken waar we contant kunnen betalen?"
-			to="/geo">
-			<BarChart {data} />
-		</Container>
-	{/await}
-</main>
+<Layout>
+	<main>
+		{#await data}
+			<p>loaded bar chart..</p>
+		{:then data}
+			<Container
+				title="Hoeveel verkooppunten zijn er op nu ten opzichte van vijf jaar geleden?"
+				paragraph="Om antwoord te kunnen geven op de vraag moeten we eerst in kaart brengen wat het aantal verkooppunten is in Nederland op dit moment en of er sprake is van een stijging of een daling."
+				firstBtnRoute="/"
+				firstButtonText="Ga terug"
+				secondBtnRoute="/geo"
+				secondButtonText="Ga door">
+				<BarChart {data} />
+			</Container>
+		{/await}
+	</main>
+</Layout>

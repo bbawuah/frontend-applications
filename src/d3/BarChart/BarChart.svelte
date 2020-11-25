@@ -37,7 +37,7 @@
 			.enter()
 			.append('rect')
 			.attr('class', 'bar')
-			.attr('fill', '#8d99ae')
+			.attr('fill', '#6C63FF')
 			.attr('width', (d) => x(d.areas.length))
 			.attr('y', (d) => y(d.paymentMethodTitle))
 			.attr('height', y.bandwidth());

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import GeoMap from '../d3/Map/GeoMap.svelte';
 	import Container from '../core/Container.svelte';
+	import Layout from '../core/Layout.svelte';
 	import type { AreaType, D3Data, SellingPoints } from '../types/Types';
 	import { PaymentMethods, AreaManagerID } from '../types/Types';
 
@@ -79,14 +80,18 @@
 	}
 </style>
 
-<main>
-	{#await data}
-		<p>loaded bar chart..</p>
-	{:then data}
-		<Container
-			title="Wat gebeurt er met de betalingsmethodes, als de verkooppunten stijgen/dalen?"
-			paragraph="De wereld is continu in verandering. Technologisering zorgt ervoor dat we steeds op makkelijkere manieren kunnen betalen voor diensten. Dit heeft ook gevolgen op de verkooppunten van de parkeergarage. Tegenwoordig is het zelfs mogelijk om je mobiel te scannen op het moment dat je in een garage rijdt. Daalt het aantal verkooppunten in Nederland door technologisering? En zijn er steeds minder plekken waar we contant kunnen betalen?">
-			<GeoMap sellingPoints={data.cleanFormattedDataSet} paymentData={data.paymentData} />
-		</Container>
-	{/await}
-</main>
+<Layout>
+	<main>
+		{#await data}
+			<p>loaded bar chart..</p>
+		{:then data}
+			<Container
+				title="Welke verkooppunten hebben deze nieuwe betalingsopties?"
+				paragraph="Het is interessant om in kaart te brengen welke steden gebruik maken van de nieuwste betalingsopties. Zijn er steden die op dit gebied nog achterlopen op de rest?"
+				firstBtnRoute="/verkooppunten"
+				firstButtonText="Ga terug">
+				<GeoMap sellingPoints={data.cleanFormattedDataSet} paymentData={data.paymentData} />
+			</Container>
+		{/await}
+	</main>
+</Layout>
