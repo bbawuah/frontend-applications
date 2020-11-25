@@ -20,7 +20,7 @@
 	.wrapper {
 		display: flex;
 		justify-content: space-evenly;
-		min-height: 800px;
+		min-height: 700px;
 	}
 
 	.text {
