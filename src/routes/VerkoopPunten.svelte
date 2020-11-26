@@ -47,8 +47,8 @@
 			<p>loaded bar chart..</p>
 		{:then data}
 			<Container
-				title="Hoeveel verkooppunten zijn er op nu ten opzichte van vijf jaar geleden?"
-				paragraph="Om antwoord te kunnen geven op de vraag moeten we eerst in kaart brengen wat het aantal verkooppunten is in Nederland op dit moment en of er sprake is van een stijging of een daling."
+				title="Welke betaalmethodes kennen we eigenlijk?"
+				paragraph="Op de grafiek is af te lezen dat Coins in deze digitale wereld nog altijd een populaire betaalmethode zijn. Mobiel, VPAY en DIP-TAP&GO zijn methodes die nog niet zoveel beschikbaar zijn in vergelijking met de rest. Wel zitten deze methodes in een trend vanwege het gebruiksgemak."
 				firstBtnRoute="/"
 				firstButtonText="Ga terug"
 				secondBtnRoute="/geo"

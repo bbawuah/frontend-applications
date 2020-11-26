@@ -89,7 +89,7 @@
 			<p>loaded bar chart..</p>
 		{:then data}
 			<Container
-				title="Welke verkooppunten hebben deze nieuwe betalingsopties?"
+				title="Hebben verkooppunten nieuwe betalingsopties?"
 				paragraph="Het is interessant om in kaart te brengen welke steden gebruik maken van de nieuwste betalingsopties. Zijn er steden die op dit gebied nog achterlopen op de rest?"
 				firstBtnRoute="/verkooppunten"
 				firstButtonText="Ga terug">
@@ -101,16 +101,21 @@
 							console.log(selected);
 						}}>
 						<option value="payment">verkooppunten</option>
-						<option value="startdate">2019</option>
+						<option value="2019">2019</option>
+						<option value="2009">2009</option>
 					</select>
 				</form>
 				{#if selected === 'payment'}
 					<GeoMap
 						sellingPoints={data.cleanFormattedDataSet}
 						paymentData={data.paymentData} />
+				{:else if selected === '2019'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
 				{:else}
 					<GeoMap
-						sellingPoints={startDateData(data.cleanFormattedDataSet)}
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
 						paymentData={data.paymentData} />
 				{/if}
 			</Container>

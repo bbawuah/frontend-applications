@@ -4,7 +4,7 @@
 	import VerkoopPunten from './routes/VerkoopPunten.svelte';
 	import Geo from './routes/Geo.svelte';
 
-	export let url = 'http://localhost:5000' || 'https://goofy-galileo-4aec17.netlify.app';
+	export let url = '';
 </script>
 
 <Router {url}>

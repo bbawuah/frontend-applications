@@ -1,5 +1,17 @@
 <script lang="ts">
-	export let data: string[][];
+	import type { D3Data, SellingPoints } from '../../types/Types';
+
+	export let data: SellingPoints;
+	export let paymentData: D3Data[];
+
+	const rawPaymentArray = paymentData.map((pData) => {
+		const filter = pData.areas.filter((area) => area.areamanagerid === data.area);
+		const methods = filter.map((d) => d.paymentmethod);
+		return Array.from(new Set(methods));
+	});
+
+	const cleanPaymentArray = rawPaymentArray.filter((d) => d.length !== 0);
+	console.log(cleanPaymentArray);
 </script>
 
 <style>

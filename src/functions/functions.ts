@@ -1,9 +1,9 @@
 import type { SellingPoints, AreaType, D3Data } from '../types/Types';
-export function startDateData(arr: SellingPoints[]) {
+export function startDateData(arr: SellingPoints[], year: string) {
 	const filterOpDatum = arr
 		.map((data) =>
 			data.areas.filter((data) => {
-				return data.startdatesellingpoint.includes('2019');
+				return data.startdatesellingpoint.includes(year);
 			}),
 		)
 		.filter((d) => d.length !== 0);

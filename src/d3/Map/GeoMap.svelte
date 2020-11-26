@@ -16,6 +16,8 @@
 	export let sellingPoints: SellingPoints[];
 	export let paymentData: D3Data[];
 
+	let currentSellingPoint: SellingPoints;
+
 	const projection = geoMercator().scale(6000).center([5.116667, 52.17]);
 
 	onMount(async function () {
@@ -103,6 +105,7 @@
 					const cleanPaymentArray = rawPaymentArray.filter((d) => d.length !== 0);
 
 					hideTooltip = false;
+					currentSellingPoint = sellingPoint;
 					toolTipData = cleanPaymentArray;
 				}}
 				on:mouseout={(event) => {
@@ -114,6 +117,6 @@
 	</svg>
 
 	{#if hideTooltip !== true}
-		<ToolTip {data} />
+		<ToolTip data={currentSellingPoint} {paymentData} />
 	{/if}
 </div>
