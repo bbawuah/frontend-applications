@@ -1,12 +1,17 @@
 <script lang="ts">
+	import * as d3 from 'd3';
 	import { geoMercator, geoPath, geoProjection } from 'd3-geo';
 	import { onMount } from 'svelte';
 	import { feature } from 'topojson';
 	import { tweened } from 'svelte/motion';
 	import { scaleLinear, scaleSqrt } from 'd3-scale';
 	import type { SellingPoints, D3Data } from '../../types/Types';
+	import ToolTip from '../ToolTip/ToolTip.svelte';
 
 	let data: any;
+	let el: any;
+	let hideTooltip: boolean = true;
+	let toolTipData: string[][];
 
 	export let sellingPoints: SellingPoints[];
 	export let paymentData: D3Data[];
@@ -43,10 +48,6 @@
 
 	$: path = geoPath().projection($currentProj);
 
-	const opacity = tweened(0, {
-		duration: 1000,
-	});
-
 	const circleScale = scaleSqrt()
 		.domain([
 			0,
@@ -60,6 +61,7 @@
 		.range([2, 15]);
 </script>
 
+<!-- svelte-ignore a11y-no-onchange -->
 <style>
 	svg {
 		width: 960px;
@@ -71,20 +73,47 @@
 	}
 </style>
 
-<svg width="960" height="500">
-	<path class="borders" d={data} />
-	{#each sellingPoints as sellingPoint}
-		<circle
-			class="city"
-			cx={$currentProj([
-				parseFloat(sellingPoint.areas[0].location.longitude),
-				parseFloat(sellingPoint.areas[0].location.latitude),
-			])[0]}
-			cy={$currentProj([
-				parseFloat(sellingPoint.areas[0].location.longitude),
-				parseFloat(sellingPoint.areas[0].location.latitude),
-			])[1]}
-			r={circleScale(sellingPoint.areas.length)}
-			fill="#2856B8" />
-	{/each}
-</svg>
+<div class="map-container">
+	<svg>
+		<path class="border" d={data} />
+		{#each sellingPoints as sellingPoint}
+			<circle
+				class="city"
+				cx={$currentProj([
+					parseFloat(sellingPoint.areas[0].location.longitude),
+					parseFloat(sellingPoint.areas[0].location.latitude),
+				])[0]}
+				cy={$currentProj([
+					parseFloat(sellingPoint.areas[0].location.longitude),
+					parseFloat(sellingPoint.areas[0].location.latitude),
+				])[1]}
+				r={circleScale(sellingPoint.areas.length)}
+				fill="#2856B8"
+				stroke-width="3"
+				fill-opacity="0.4"
+				on:mouseover={(event) => {
+					d3.select(event.currentTarget).style('fill', 'black');
+
+					const rawPaymentArray = paymentData.map((pData) => {
+						const filter = pData.areas.filter((area) => area.areamanagerid === data.area);
+						const methods = filter.map((d) => d.paymentmethod);
+						return Array.from(new Set(methods));
+					});
+
+					const cleanPaymentArray = rawPaymentArray.filter((d) => d.length !== 0);
+
+					hideTooltip = false;
+					toolTipData = cleanPaymentArray;
+				}}
+				on:mouseout={(event) => {
+					d3.select(event.currentTarget).style('fill', '#2856B8');
+
+					hideTooltip = true;
+				}} />
+		{/each}
+	</svg>
+
+	{#if hideTooltip !== true}
+		<ToolTip {data} />
+	{/if}
+</div>

@@ -17,10 +17,6 @@
 	:global(a):visited {
 		color: rgb(248, 248, 248);
 	}
-	:global(a):hover {
-		position: relative;
-		top: -3px;
-	}
 </style>
 
 <Link class="button" {to}>{text}</Link>

@@ -4,11 +4,13 @@
 	import Layout from '../core/Layout.svelte';
 	import type { AreaType, D3Data, SellingPoints } from '../types/Types';
 	import { PaymentMethods, AreaManagerID } from '../types/Types';
+	import { startDateData } from '../functions/functions';
 
 	let data: Promise<{
 		cleanFormattedDataSet: SellingPoints[];
 		paymentData: D3Data[];
 	}> = loadData();
+	let selected: string;
 
 	async function loadData() {
 		// Payments
@@ -58,6 +60,7 @@
 	}
 </script>
 
+<!-- svelte-ignore a11y-no-onchange -->
 <style>
 	main {
 		text-align: center;
@@ -90,7 +93,26 @@
 				paragraph="Het is interessant om in kaart te brengen welke steden gebruik maken van de nieuwste betalingsopties. Zijn er steden die op dit gebied nog achterlopen op de rest?"
 				firstBtnRoute="/verkooppunten"
 				firstButtonText="Ga terug">
-				<GeoMap sellingPoints={data.cleanFormattedDataSet} paymentData={data.paymentData} />
+				<form>
+					<select
+						bind:value={selected}
+						on:change={(event) => {
+							selected = event.currentTarget.value;
+							console.log(selected);
+						}}>
+						<option value="payment">verkooppunten</option>
+						<option value="startdate">2019</option>
+					</select>
+				</form>
+				{#if selected === 'payment'}
+					<GeoMap
+						sellingPoints={data.cleanFormattedDataSet}
+						paymentData={data.paymentData} />
+				{:else}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet)}
+						paymentData={data.paymentData} />
+				{/if}
 			</Container>
 		{/await}
 	</main>
