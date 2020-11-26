@@ -21,6 +21,14 @@ export enum PaymentMethods {
 	DINERS_CLUB = 'DINERS-CLUB',
 }
 
+export enum CreditCards {
+	CREDITCARD = 'CREDITCARD',
+	MAESTRO = 'MAESTRO',
+	MASTERCARD = 'MASTERCARD',
+	VISA = 'VISA',
+	AMEX = 'AMEX',
+}
+
 export enum AreaManagerID {
 	AM1 = '299',
 	AM2 = '518',

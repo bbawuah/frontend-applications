@@ -2,10 +2,12 @@
 	import BarChart from '../d3/BarChart/BarChart.svelte';
 	import Container from '../core/Container.svelte';
 	import Layout from '../core/Layout.svelte';
-	import type { AreaType, D3Data, SellingPoints } from '../types/Types';
-	import { PaymentMethods, AreaManagerID } from '../types/Types';
+	import type { AreaType, D3Data } from '../types/Types';
+	import { PaymentMethods, CreditCards } from '../types/Types';
+	import { getPaymentData, parseCreditCardData } from '../functions/functions';
 
 	let data: Promise<D3Data[]> = loadData();
+	let countOfCreditCards: number;
 
 	async function loadData() {
 		// Payments
@@ -15,16 +17,11 @@
 		const json = await paymentMethodsResponse.json();
 		const paymentMethods = Object.values(PaymentMethods);
 
-		let paymentData: D3Data[] = paymentMethods.map((payment) => {
-			const paymentMethodAreas = json.filter(
-				(item: AreaType) => item.paymentmethod.toUpperCase() === payment,
-			);
-			return {
-				paymentMethodTitle: payment,
-				areas: paymentMethodAreas,
-			};
-		});
+		const paymentData: D3Data[] = getPaymentData(paymentMethods, json);
 
+		const creditCardData: D3Data[] = getPaymentData(Object.values(CreditCards), json);
+
+		countOfCreditCards = parseCreditCardData(creditCardData);
 		return paymentData;
 	}
 </script>
@@ -56,6 +53,7 @@
 				firstButtonText="Ga terug"
 				secondBtnRoute="/geo"
 				secondButtonText="Ga door">
+				<p>Totaal aantal creditcards: {countOfCreditCards}</p>
 				<BarChart {data} />
 			</Container>
 		{/await}
