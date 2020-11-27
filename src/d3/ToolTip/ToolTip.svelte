@@ -49,10 +49,14 @@
 <div class="tooltip">
 	<h3>Gebied {data.area}: {locatie}</h3>
 	<p>In {year} zijn er in dit gebied {data.areas.length} verkooppunten bijgekomen.</p>
-	<p>De bekende betaalopties deze gebieden zijn:</p>
-	<ul>
-		{#each cleanPaymentArray as payment}
-			<li>{payment}</li>
-		{/each}
-	</ul>
+	{#if cleanPaymentArray.length > 0}
+		<p>De bekende betaalopties deze gebieden zijn:</p>
+		<ul>
+			{#each cleanPaymentArray as payment}
+				<li>{payment}</li>
+			{/each}
+		</ul>
+	{:else}
+		<p>Er zijn helaas geen betaalopties bekend van dit gebied..</p>
+	{/if}
 </div>
