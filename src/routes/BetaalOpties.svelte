@@ -70,7 +70,7 @@
 				secondBtnRoute="/geo"
 				secondButtonText="Ga door">
 				<!-- <p>Totaal aantal creditcards: {countOfCreditCards}</p> -->
-				<Percentages coins={coinsCount} {cash} banknotes={bankNotesCount} {totalCount} />
+				<Percentages coins={coinsCount} banknotes={bankNotesCount} {totalCount} />
 			</Container>
 		{/await}
 	</main>

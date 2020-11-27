@@ -1,6 +1,5 @@
 <script lang="ts">
 	export let coins: number;
-	export let cash: number;
 	export let banknotes: number;
 	export let totalCount: number;
 </script>
@@ -35,9 +34,6 @@
 </style>
 
 <section>
-	<div class="container">
-		<div><span>Cash {(cash / totalCount) * 100}%</span></div>
-	</div>
 	<div class="container"><span>Coins {(coins / totalCount) * 100}%</span></div>
 	<div class="container"><span>Banknotes {(banknotes / totalCount) * 100}%</span></div>
 </section>
