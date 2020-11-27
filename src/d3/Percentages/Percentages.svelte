@@ -8,7 +8,7 @@
 	section {
 		display: flex;
 		width: 700px;
-		justify-content: space-between;
+		justify-content: space-evenly;
 	}
 
 	.container {
