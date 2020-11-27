@@ -47,8 +47,8 @@
 			<p>loaded bar chart..</p>
 		{:then data}
 			<Container
-				title="Welke betaalmethodes kennen we eigenlijk?"
-				paragraph="Op de grafiek is af te lezen dat Coins in deze digitale wereld nog altijd een populaire betaalmethode zijn. Mobiel, VPAY en DIP-TAP&GO zijn methodes die nog niet zoveel beschikbaar zijn in vergelijking met de rest. Wel zitten deze methodes in een trend vanwege het gebruiksgemak."
+				title="Welke betaalopties kennen we eigenlijk?"
+				paragraph="Op de grafiek is af te lezen dat Coins in deze digitale wereld nog altijd een populaire betaalopties zijn. Mobiel, VPAY en DIP-TAP&GO zijn methodes die nog niet zoveel beschikbaar zijn in vergelijking met de rest. Wel zitten deze methodes in een trend vanwege het gebruiksgemak."
 				firstBtnRoute="/"
 				firstButtonText="Ga terug"
 				secondBtnRoute="/geo"
