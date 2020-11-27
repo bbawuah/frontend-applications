@@ -78,11 +78,28 @@
 		stroke: #444444;
 		fill: #cccccc;
 	}
+
+	.legenda-container {
+		display: flex;
+		align-items: center;
+		width: 250px;
+		justify-content: space-between;
+	}
+	.legenda {
+		background-color: #2856b8;
+		width: 25px;
+		height: 25px;
+		border-radius: 50%;
+	}
 </style>
 
 <div class="map-container">
 	<h4>Totaal aantal gebieden: {sellingPoints.length}</h4>
 	<h4>Totaal aantal verkooppunten: {total.length}</h4>
+	<div class="legenda-container">
+		<div class="legenda" />
+		<p>Gebied met verkooppunten</p>
+	</div>
 
 	<svg>
 		<path class="border" d={data} />
