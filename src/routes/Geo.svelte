@@ -83,7 +83,7 @@
 		{:then data}
 			<Container
 				title="Hoeveel verkooppunten komen er bij per jaar?"
-				paragraph="Vanaf 2014 is er een forse stijging in het aantal verkooppunten. We zouden in potentie erachter kunnen komen wat de opkomende betalingsopties zijn. Helaas is de dataset van het RDW niet volledig, van sommige verkooppunten is niet bekend welke betalingsopties."
+				paragraph="Vanaf 2014 is er een forse stijging in het aantal verkooppunten. We zouden in potentie erachter kunnen komen wat de opkomende betaalopties zijn. Helaas is de dataset van het RDW niet volledig, van sommige verkooppunten is niet bekend welke betaalopties."
 				firstBtnRoute="/verkooppunten"
 				firstButtonText="Ga terug"
 				secondBtnRoute="/conclusie"
