@@ -1,23 +1,28 @@
 <script lang="ts">
-	import { geoCodeReverse, getDateFormat } from '../../functions/functions';
-
-	import type { D3Data, SellingPoints } from '../../types/Types';
-
+	import { geoCodeReverse, getDateFormat, getPaymentData } from '../../functions/functions';
+	import BarChart from '../BarChart/BarChart.svelte';
+	import type { AreaType, D3Data, SellingPoints } from '../../types/Types';
+	import { PaymentMethods } from '../../types/Types';
 	export let data: SellingPoints;
 	export let paymentData: D3Data[];
 	export let year: string = getDateFormat(data.areas[0].startdatesellingpoint);
 
 	console.log(data);
-	console.log(year);
 
-	const rawPaymentArray = paymentData.map((pData) => {
+	let filteredPaymentArray: D3Data[] = [];
+
+	paymentData.forEach((pData) => {
 		const filter = pData.areas.filter((area) => area.areamanagerid === data.area);
-		const methods = filter.map((d) => d.paymentmethod);
-		return Array.from(new Set(methods));
+		filteredPaymentArray.push({
+			paymentMethodTitle: pData.paymentMethodTitle,
+			areas: filter,
+		});
 	});
 
-	const cleanPaymentArray = rawPaymentArray.filter((d) => d.length !== 0);
-	console.log(cleanPaymentArray);
+	const barChartData = filteredPaymentArray.filter((data) => data.areas.length > 0);
+	const rawPaymentArray = barChartData.map((d) => d.paymentMethodTitle);
+
+	const cleanPaymentArray = rawPaymentArray.filter((d) => d !== undefined);
 	let locatie;
 
 	(async () => {
@@ -25,10 +30,7 @@
 			data.areas[0].location.longitude,
 			data.areas[0].location.latitude,
 		);
-		console.log(locatie);
 	})();
-
-	console.log(locatie);
 </script>
 
 <style>
@@ -42,6 +44,8 @@
 		border-radius: 3px;
 		opacity: 0.95;
 		position: absolute;
+		top: 0;
+		left: 0;
 		box-shadow: rgba(0, 0, 0, 0.3) 0 2px 10px;
 	}
 </style>
@@ -56,6 +60,7 @@
 				<li>{payment}</li>
 			{/each}
 		</ul>
+		<BarChart data={barChartData} />
 	{:else}
 		<p>Er zijn helaas geen betaalopties bekend van dit gebied..</p>
 	{/if}
