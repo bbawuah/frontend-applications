@@ -1,4 +1,4 @@
-# functional-programming en frontend-data
+# functional-programming, frontend-data & frontend-applications
 
 [Link naar project](https://goofy-galileo-4aec17.netlify.app/)
 
@@ -14,15 +14,15 @@ De wereld is continu in verandering. Technologisering zorgt ervoor dat we steeds
 
 ## Deelvragen
 
--   Hoeveel verkooppunten zijn er op nu ten opzichte van vijf jaar geleden?
+-   Hoeveel verkooppunten komer er elk jaar bij?
 
 Om antwoord te kunnen geven op de vraag moeten we eerst in kaart brengen wat het aantal verkooppunten is in Nederland op dit moment en of er sprake is van een stijging of een daling.
 
--   Welke betalingsopties kennen we in Nederland?
+-   Welke betaalopties kennen we in Nederland?
 
 Het is belangrijk om te weten welke betalingsopties we op dit moment kennen in Nederland zodat we kunnen kijken naar welke betalingsopties wellicht zijn verdwenen en welke nieuwe betalingsopties we hebben gekregen.
 
--   Welke verkooppunten hebben deze nieuwe betalingsopties?
+-   Welke verkooppunten hebben deze nieuwe betalingsopties? Locatie
 
 Het is interessant om in kaart te brengen welke steden gebruik maken van de nieuwste betalingsopties. Zijn er steden die op dit gebied nog achterlopen op de rest?
 
@@ -50,6 +50,10 @@ Deze dataset heeft de volgende relevante variabelen
 -   StartDatePaymentMethod (Begindatum van een periode waarin de betalingsmogelijkheid geldig is)
 -   EndDatePaymentMethod (Einddatum van een periode waarin de betalingsmogelijkheid geldig is)
 -   SellingPointNumber (Identificatie van een verkooppunt)
+
+## Wat wil ik in kaart brengen?
+
+Ik wil gaan kijken of een stijging of een daling in het aantal nieuwe verkooppunten, invloed heeft op de betaalopties die we kennen in Nederland.
 
 ## Verwachtingen
 
