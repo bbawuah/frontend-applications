@@ -53,7 +53,7 @@
 				firstButtonText="Ga terug"
 				secondBtnRoute="/geo"
 				secondButtonText="Ga door">
-				<p>Totaal aantal creditcards: {countOfCreditCards}</p>
+				<!-- <p>Totaal aantal creditcards: {countOfCreditCards}</p> -->
 				<BarChart {data} />
 			</Container>
 		{/await}
