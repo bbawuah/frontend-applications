@@ -23,7 +23,7 @@
 			.attr('width', width + margin.left + margin.right)
 			.attr('height', height + margin.top + margin.bottom);
 
-		d3.select(g).append('g').attr('transform', `translate(${margin.left}',' ${margin.top})`);
+		d3.select(g).append('g').attr('transform', `translate(${margin.left}, ${margin.top})`);
 
 		d3.select(g)
 			.selectAll('.bar')
