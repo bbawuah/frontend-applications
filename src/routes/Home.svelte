@@ -25,7 +25,7 @@
 			title="Wat gebeurt er met de betaalopties, als de verkooppunten stijgen/dalen?"
 			paragraph="De wereld is continu in verandering. Technologisering zorgt ervoor dat we steeds op makkelijkere manieren kunnen betalen voor diensten. Dit heeft ook gevolgen op de verkooppunten van de parkeergarage. Daalt het aantal verkooppunten in Nederland door technologisering? En zijn er steeds minder plekken waar we contant kunnen betalen?"
 			secondBtnRoute="/verkooppunten"
-			secondButtonText="Get started">
+			secondButtonText="Ga door">
 			<Image src="assets/chilling-at-car.svg" />
 		</Container>
 	</main>
