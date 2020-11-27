@@ -69,13 +69,6 @@
 		margin: 0 auto;
 	}
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
 	@media (min-width: 640px) {
 		main {
 			max-width: none;
@@ -86,13 +79,15 @@
 <Layout>
 	<main>
 		{#await data}
-			<p>loaded bar chart..</p>
+			<p>loading map..</p>
 		{:then data}
 			<Container
-				title="Hebben verkooppunten nieuwe betalingsopties?"
-				paragraph="Het is interessant om in kaart te brengen welke steden gebruik maken van de nieuwste betalingsopties. Zijn er steden die op dit gebied nog achterlopen op de rest?"
+				title="Hoeveel verkooppunten komen er bij per jaar?"
+				paragraph="Vanaf 2014 is er een forse stijging in het aantal verkooppunten. Dit zou interessant kunnen zijn om te erachter te komen wat de opkomende betalingsopties zijn. Helaas is de dataset van het RDW niet volledig, van sommige verkooppunten is niet bekend welke betalingsopties."
 				firstBtnRoute="/verkooppunten"
-				firstButtonText="Ga terug">
+				firstButtonText="Ga terug"
+				secondBtnRoute="/conclusie"
+				secondButtonText="Conclusie">
 				<form>
 					<select
 						bind:value={selected}
@@ -100,16 +95,95 @@
 							selected = event.currentTarget.value;
 							console.log(selected);
 						}}>
-						<option value="payment">verkooppunten</option>
+						<option value="2020">2020</option>
 						<option value="2019">2019</option>
+						<option value="2018">2018</option>
+						<option value="2017">2017</option>
+						<option value="2016">2016</option>
+						<option value="2015">2015</option>
+						<option value="2014">2014</option>
+						<option value="2013">2013</option>
+						<option value="2012">2012</option>
+						<option value="2011">2011</option>
+						<option value="2010">2010</option>
 						<option value="2009">2009</option>
+						<option value="2008">2008</option>
+						<option value="2007">2007</option>
+						<option value="2007">2007</option>
+						<option value="2006">2006</option>
+						<option value="2005">2005</option>
+						<option value="2004">2004</option>
 					</select>
 				</form>
-				{#if selected === 'payment'}
+				{#if selected === '2020'}
 					<GeoMap
-						sellingPoints={data.cleanFormattedDataSet}
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
 						paymentData={data.paymentData} />
 				{:else if selected === '2019'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2018'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2017'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2016'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2015'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2014'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2013'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2012'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2011'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2010'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2009'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2008'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2007'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2006'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2005'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2004'}
+					<GeoMap
+						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
+						paymentData={data.paymentData} />
+				{:else if selected === '2003'}
 					<GeoMap
 						sellingPoints={startDateData(data.cleanFormattedDataSet, selected)}
 						paymentData={data.paymentData} />

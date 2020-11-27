@@ -4,17 +4,22 @@
 	import { onMount } from 'svelte';
 	import { feature } from 'topojson';
 	import { tweened } from 'svelte/motion';
-	import { scaleLinear, scaleSqrt } from 'd3-scale';
-	import type { SellingPoints, D3Data } from '../../types/Types';
+	import { scaleSqrt } from 'd3-scale';
+	import type { SellingPoints, D3Data, Area } from '../../types/Types';
 	import ToolTip from '../ToolTip/ToolTip.svelte';
 
 	let data: any;
-	let el: any;
 	let hideTooltip: boolean = true;
 	let toolTipData: string[][];
 
 	export let sellingPoints: SellingPoints[];
 	export let paymentData: D3Data[];
+
+	let total: Area[] = [];
+
+	sellingPoints.forEach((sellingPoint) => {
+		total = [...total, ...sellingPoint.areas];
+	});
 
 	let currentSellingPoint: SellingPoints;
 
@@ -76,6 +81,9 @@
 </style>
 
 <div class="map-container">
+	<h4>Totaal aantal gebieden: {sellingPoints.length}</h4>
+	<h4>Totaal aantal verkooppunten: {total.length}</h4>
+
 	<svg>
 		<path class="border" d={data} />
 		{#each sellingPoints as sellingPoint}

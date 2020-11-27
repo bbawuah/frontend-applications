@@ -2,7 +2,7 @@
 	import BarChart from '../d3/BarChart/BarChart.svelte';
 	import Container from '../core/Container.svelte';
 	import Layout from '../core/Layout.svelte';
-	import type { AreaType, D3Data } from '../types/Types';
+	import type { D3Data } from '../types/Types';
 	import { PaymentMethods, CreditCards } from '../types/Types';
 	import { getPaymentData, parseCreditCardData } from '../functions/functions';
 

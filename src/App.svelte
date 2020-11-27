@@ -3,6 +3,7 @@
 	import Home from './routes/Home.svelte';
 	import VerkoopPunten from './routes/VerkoopPunten.svelte';
 	import Geo from './routes/Geo.svelte';
+	import Conclusie from './routes/Conclusie.svelte';
 
 	export let url = '';
 </script>
@@ -17,6 +18,9 @@
 		</Route>
 		<Route path="/geo">
 			<Geo />
+		</Route>
+		<Route path="/conclusie">
+			<Conclusie />
 		</Route>
 	</div>
 </Router>

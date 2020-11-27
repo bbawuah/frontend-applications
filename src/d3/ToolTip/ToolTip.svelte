@@ -1,8 +1,14 @@
 <script lang="ts">
+	import { geoCodeReverse, getDateFormat } from '../../functions/functions';
+
 	import type { D3Data, SellingPoints } from '../../types/Types';
 
 	export let data: SellingPoints;
 	export let paymentData: D3Data[];
+	export let year: string = getDateFormat(data.areas[0].startdatesellingpoint);
+
+	console.log(data);
+	console.log(year);
 
 	const rawPaymentArray = paymentData.map((pData) => {
 		const filter = pData.areas.filter((area) => area.areamanagerid === data.area);
@@ -12,6 +18,17 @@
 
 	const cleanPaymentArray = rawPaymentArray.filter((d) => d.length !== 0);
 	console.log(cleanPaymentArray);
+	let locatie;
+
+	(async () => {
+		locatie = await geoCodeReverse(
+			data.areas[0].location.longitude,
+			data.areas[0].location.latitude,
+		);
+		console.log(locatie);
+	})();
+
+	console.log(locatie);
 </script>
 
 <style>
@@ -30,5 +47,12 @@
 </style>
 
 <div class="tooltip">
-	<p>Tooltip!!!</p>
+	<h3>Gebied {data.area}: {locatie}</h3>
+	<p>In {year} zijn er in dit gebied {data.areas.length} verkooppunten bijgekomen.</p>
+	<p>De bekende betaalmethodes deze gebieden zijn:</p>
+	<ul>
+		{#each cleanPaymentArray as payment}
+			<li>{payment}</li>
+		{/each}
+	</ul>
 </div>

@@ -2,8 +2,6 @@
 	import Container from '../core/Container.svelte';
 	import Image from '../core/Image.svelte';
 	import Layout from '../core/Layout.svelte';
-	import type { AreaType, D3Data, SellingPoints } from '../types/Types';
-	import { PaymentMethods, AreaManagerID } from '../types/Types';
 </script>
 
 <style>
@@ -24,8 +22,8 @@
 <Layout>
 	<main>
 		<Container
-			title="Wat gebeurt er met de betalingsmethodes, als de verkooppunten stijgen/dalen?"
-			paragraph="De wereld is continu in verandering. Technologisering zorgt ervoor dat we steeds op makkelijkere manieren kunnen betalen voor diensten. Dit heeft ook gevolgen op de verkooppunten van de parkeergarage. Tegenwoordig is het zelfs mogelijk om je mobiel te scannen op het moment dat je in een garage rijdt. Daalt het aantal verkooppunten in Nederland door technologisering? En zijn er steeds minder plekken waar we contant kunnen betalen?"
+			title="Wat gebeurt er met de betalingsopties, als de verkooppunten stijgen/dalen?"
+			paragraph="De wereld is continu in verandering. Technologisering zorgt ervoor dat we steeds op makkelijkere manieren kunnen betalen voor diensten. Dit heeft ook gevolgen op de verkooppunten van de parkeergarage. Daalt het aantal verkooppunten in Nederland door technologisering? En zijn er steeds minder plekken waar we contant kunnen betalen?"
 			secondBtnRoute="/verkooppunten"
 			secondButtonText="Get started">
 			<Image src="assets/chilling-at-car.svg" />

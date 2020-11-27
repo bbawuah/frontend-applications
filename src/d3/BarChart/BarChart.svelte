@@ -18,7 +18,6 @@
 	x.domain([0, d3.max(data, (d) => d.areas.length)]);
 	y.domain(data.map((d) => d.paymentMethodTitle));
 	onMount(() => {
-		console.log(data);
 		d3.select(svg)
 			.selectAll('svg')
 			.attr('width', width + margin.left + margin.right)

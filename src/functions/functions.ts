@@ -18,6 +18,13 @@ export function startDateData(arr: SellingPoints[], year: string) {
 	return typedFilterDatum;
 }
 
+export function getDateFormat(str: string): string {
+	const raw = str.split('').slice(0, 4);
+	const clean = raw.join('');
+
+	return clean;
+}
+
 export function getPaymentMethods(json: AreaType[]): string[] {
 	const array = json.map((item: AreaType) => {
 		return item.paymentmethod.toUpperCase();
@@ -46,4 +53,14 @@ export function parseCreditCardData(arr: D3Data[]): number {
 	});
 
 	return data.length;
+}
+
+export async function geoCodeReverse(longitude, latitude) {
+	const res = await fetch(
+		`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=pk.eyJ1IjoiYmF3dWFoYjAwMSIsImEiOiJjanhjNnNydXkwMGJ1M3Bsb295N3JyandhIn0.FevIyeyQX3bhTpWGr0KJfw&limit=1`,
+	);
+
+	const json: any = await res.json();
+
+	return json.features[0].context[3].text;
 }
