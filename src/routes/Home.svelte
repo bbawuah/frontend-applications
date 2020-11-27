@@ -2,6 +2,7 @@
 	import Container from '../core/Container.svelte';
 	import Image from '../core/Image.svelte';
 	import Layout from '../core/Layout.svelte';
+	import PieChart from '../d3/Percentages/Percentages.svelte';
 </script>
 
 <style>
@@ -29,4 +30,5 @@
 			<Image src="assets/chilling-at-car.svg" />
 		</Container>
 	</main>
+	<PieChart />
 </Layout>

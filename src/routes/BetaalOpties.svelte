@@ -1,13 +1,17 @@
 <script lang="ts">
-	import BarChart from '../d3/BarChart/BarChart.svelte';
 	import Container from '../core/Container.svelte';
 	import Layout from '../core/Layout.svelte';
 	import type { D3Data } from '../types/Types';
 	import { PaymentMethods, CreditCards } from '../types/Types';
 	import { getPaymentData, parseCreditCardData } from '../functions/functions';
+	import Percentages from '../d3/Percentages/Percentages.svelte';
 
 	let data: Promise<D3Data[]> = loadData();
 	let countOfCreditCards: number;
+	let coinsCount: number;
+	let bankNotesCount: number;
+	let cash: number;
+	let totalCount: number;
 
 	async function loadData() {
 		// Payments
@@ -17,7 +21,19 @@
 		const json = await paymentMethodsResponse.json();
 		const paymentMethods = Object.values(PaymentMethods);
 
+		totalCount = json.length;
+
 		const paymentData: D3Data[] = getPaymentData(paymentMethods, json);
+
+		paymentData.forEach((data) => {
+			if (data.paymentMethodTitle === 'CASH') {
+				cash = data.areas.length;
+			} else if (data.paymentMethodTitle === 'COINS') {
+				coinsCount = data.areas.length;
+			} else if (data.paymentMethodTitle === 'BANKNOTES') {
+				bankNotesCount = data.areas.length;
+			}
+		});
 
 		const creditCardData: D3Data[] = getPaymentData(Object.values(CreditCards), json);
 
@@ -47,14 +63,14 @@
 			<p>loaded bar chart..</p>
 		{:then data}
 			<Container
-				title="Welke betaalopties kennen we eigenlijk?"
-				paragraph="Op de grafiek is af te lezen dat Coins in deze digitale wereld nog altijd een populaire betaalopties zijn. Mobiel, VPAY en DIP-TAP&GO zijn methodes die nog niet zoveel beschikbaar zijn in vergelijking met de rest. Wel zitten deze methodes in een trend vanwege het gebruiksgemak."
-				firstBtnRoute="/"
+				title="Percentages van het contante betaalopties"
+				paragraph="De cijfers vertellen dat er relatief weinig verkooppunten zijn waar men contant kan betalen."
+				firstBtnRoute="/verkooppunten"
 				firstButtonText="Ga terug"
-				secondBtnRoute="/betaalopties"
+				secondBtnRoute="/geo"
 				secondButtonText="Ga door">
 				<!-- <p>Totaal aantal creditcards: {countOfCreditCards}</p> -->
-				<BarChart {data} />
+				<Percentages coins={coinsCount} {cash} banknotes={bankNotesCount} {totalCount} />
 			</Container>
 		{/await}
 	</main>
